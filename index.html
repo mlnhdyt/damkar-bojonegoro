@@ -263,7 +263,55 @@
             color: #856404;
             font-weight: 500;
         }
-        
+
+        /* Style untuk tombol salin */
+        .copy-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .copy-btn:hover {
+            background: #45a049;
+        }
+
+        .copy-btn.copied {
+            background: #2196F3;
+        }
+
+        .phone-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
         @media (min-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -317,10 +365,26 @@
             .contact-title {
                 font-size: 1.5rem;
             }
+
+            .phone-container {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+
+            .copy-btn {
+                margin-left: 0;
+                align-self: flex-start;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Notification untuk salin nomor -->
+    <div class="notification" id="copyNotification">
+        <i class="fas fa-check-circle"></i> Nomor berhasil disalin!
+    </div>
+
     <header>
         <div class="container">
             <div class="logo-container">
@@ -351,18 +415,28 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Call Center</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fas fa-phone"></i></span>
-                                (0353) 113
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fas fa-phone"></i></span>
+                                    (0353) 113
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('(0353) 113')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                     </li>
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Kota Bojonegoro</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/6282330668443" target="_blank">0823-3066-8443</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/6282330668443" target="_blank">0823-3066-8443</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('082330668443')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/A2VDTfLPSzivf2dk9" target="_blank" class="map-link">
@@ -372,9 +446,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Baureno</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/628113471446" target="_blank">0811-3471-446</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/628113471446" target="_blank">0811-3471-446</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('08113471446')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/sLFNhrTWbhkY9Xaz9" target="_blank" class="map-link">
@@ -384,9 +463,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Padangan</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/628113471448" target="_blank">0811-3471-448</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/628113471448" target="_blank">0811-3471-448</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('08113471448')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/aqqdKJRAiXVFWaNF6" target="_blank" class="map-link">
@@ -396,9 +480,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Kedungadem</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/628113487037" target="_blank">0811-3487-037</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/628113487037" target="_blank">0811-3487-037</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('08113487037')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/8ai4jo1RHgTyyLz56" target="_blank" class="map-link">
@@ -408,9 +497,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Sekar</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/628113587038" target="_blank">0811-3587-038</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/628113587038" target="_blank">0811-3587-038</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('08113587038')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/zXFiGxsn2ZjWced49" target="_blank" class="map-link">
@@ -420,9 +514,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Ngambon</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/628113487039" target="_blank">0811-3487-039</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/628113487039" target="_blank">0811-3487-039</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('08113487039')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/SrJRemZiJRQ5EptP8" target="_blank" class="map-link">
@@ -432,9 +531,14 @@
                     <li class="contact-item">
                         <div class="contact-info">
                             <div class="pos-name">Pos Ngasem</div>
-                            <div class="phone-number">
-                                <span class="icon"><i class="fab fa-whatsapp"></i></span>
-                                <a href="https://wa.me/6282349430055" target="_blank">0823-4943-0055</a>
+                            <div class="phone-container">
+                                <div class="phone-number">
+                                    <span class="icon"><i class="fab fa-whatsapp"></i></span>
+                                    <a href="https://wa.me/6282349430055" target="_blank">0823-4943-0055</a>
+                                </div>
+                                <button class="copy-btn" onclick="copyNumber('082349430055')">
+                                    <i class="far fa-copy"></i> Salin
+                                </button>
                             </div>
                         </div>
                         <a href="https://maps.app.goo.gl/H9jbz4PeyCXThy3b9" target="_blank" class="map-link">
@@ -443,7 +547,7 @@
                     </li>
                 </ul>
                 <div class="emergency-note">
-                    <i class="fas fa-exclamation-triangle"></i> Apabila nomor whatsapp centang satu bisa call panggilan biasa
+                    <i class="fas fa-exclamation-triangle"></i> Untuk keadaan darurat, hubungi call center (0353) 113 atau pos terdekat 24 jam
                 </div>
             </div>
             
@@ -464,5 +568,61 @@
             <p>Layanan Masyarakat 24 Jam</p>
         </div>
     </footer>
+
+    <script>
+        // Fungsi untuk menyalin nomor
+        function copyNumber(number) {
+            // Hapus karakter non-digit untuk format yang bersih
+            const cleanNumber = number.replace(/\D/g, '');
+            
+            navigator.clipboard.writeText(cleanNumber).then(function() {
+                // Tampilkan notifikasi
+                const notification = document.getElementById('copyNotification');
+                notification.classList.add('show');
+                
+                // Ubah teks tombol sementara
+                const button = event.target.closest('.copy-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+                button.classList.add('copied');
+                
+                // Sembunyikan notifikasi setelah 2 detik
+                setTimeout(function() {
+                    notification.classList.remove('show');
+                }, 2000);
+                
+                // Kembalikan teks tombol setelah 1.5 detik
+                setTimeout(function() {
+                    button.innerHTML = originalText;
+                    button.classList.remove('copied');
+                }, 1500);
+                
+            }).catch(function(err) {
+                console.error('Gagal menyalin teks: ', err);
+                alert('Gagal menyalin nomor. Silakan salin manual: ' + cleanNumber);
+            });
+        }
+
+        // Fungsi untuk fallback jika clipboard API tidak tersedia
+        if (!navigator.clipboard) {
+            // Fallback untuk browser lama
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            copyButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const number = this.getAttribute('onclick').match(/'([^']+)'/)[1];
+                    const cleanNumber = number.replace(/\D/g, '');
+                    
+                    const textArea = document.createElement('textarea');
+                    textArea.value = cleanNumber;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    alert('Nomor disalin: ' + cleanNumber);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
